@@ -1,0 +1,121 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:BrainWPF" x:Name="mainWindow" x:Class="BrainWPF.MainWindow"
+        Title="MainWindow" Height="634" Width="881" Closing="Window_Closing" >
+    <Window.Resources>
+        <local:ResultConverter x:Key="valueToForeground" />
+        <Style TargetType="{x:Type DataGrid}">
+            <Setter Property="Background"
+                    Value="{Binding RelativeSource={RelativeSource Self}, Path=Content.Text, Converter={StaticResource valueToForeground}}" />
+            <Setter Property="Foreground"
+                    Value="{Binding RelativeSource={RelativeSource Self}, Path=Content.Text, Converter={StaticResource valueToForeground}}" />
+        </Style>
+        <!--<local:NumberOfQuestionConverter x:Key="activeQuestion" />
+            <Style TargetType="{x:Type DataGrid}">
+                <Setter Property="Background"
+                    Value="{Binding RelativeSource={RelativeSource Self}, Path=Content.Text, Converter={StaticResource activeQuestion}}" />
+            </Style>-->
+    </Window.Resources>
+
+    <Grid RenderTransformOrigin="0.488,0.143" HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="46*"/>
+            <RowDefinition Height="167*"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="lblTimer" Content="01:00" HorizontalAlignment="Left" Margin="678,0,0,0" VerticalAlignment="Top" Width="185" Height="106" FontSize="72"/>
+        <Label x:Name="lblSecondTeamName" Content="{Binding SecondTeam.Name}" HorizontalAlignment="Left" Margin="532,8,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.974,3.115" FontSize="36" Height="67" Width="331" Grid.Row="1"/>
+        <Label x:Name="lblFirstTeamName" Content="{Binding FirstTeam.Name}" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.974,3.115" FontSize="36" Height="67" Width="335" Grid.Row="1" Background="{x:Null}" OpacityMask="#FFF718A6" BorderThickness="2" HorizontalContentAlignment="Right" >
+            <Label.BindingGroup>
+                <BindingGroup/>
+            </Label.BindingGroup>
+        </Label>
+        <Button x:Name="btnStart" Content="Start" HorizontalAlignment="Left" Margin="321,242,0,0" VerticalAlignment="Top" Width="254" Height="58" FontSize="36" Grid.Row="1" Click="btnStart_Click" Visibility="Hidden"/>
+        <Button x:Name="btnFalse" Content="false" HorizontalAlignment="Left" Margin="321,305,0,0" VerticalAlignment="Top" Width="109" Height="53" Grid.Row="1" Background="#CCD40000" FontSize="20" Foreground="Yellow" Visibility="Hidden" Click="btnFalse_Click"/>
+        <Button x:Name="btnTrue" Content="true" HorizontalAlignment="Left" Margin="463,305,0,0" VerticalAlignment="Top" Width="112" Height="53" Grid.Row="1" Background="#FF00C940" FontSize="20" Foreground="Yellow" Visibility="Hidden" Click="btnTrue_Click"/>
+        <Button x:Name="btnBackStep" Content="Back" HorizontalAlignment="Left" Margin="21,68,0,0" VerticalAlignment="Top" Width="72" Height="52" Click="btnBackStep_Click" BorderBrush="{x:Null}" FontSize="18" FontStyle="Italic" Visibility="Hidden">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FFF3F3F3"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.502"/>
+                    <GradientStop Color="#FFEEEA9D" Offset="0.519"/>
+                    <GradientStop Color="#FFF9EF14" Offset="1"/>
+                    <GradientStop Color="#FF3838F7"/>
+                    <GradientStop Color="#FFADADEA" Offset="0.481"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Label Content=":" HorizontalAlignment="Left" Margin="430,3,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.974,3.115" FontSize="36" Height="58" Width="18" Grid.Row="1"/>
+        <Label x:Name="lblNew" Content="New game" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="18" Foreground="White" Width="120" Height="45" HorizontalContentAlignment="Center" Background="#FF6B54B9" MouseEnter="lblNew_MouseEnter" MouseLeave="lblNew_MouseLeave" MouseDown="lblNew_MouseDown" BorderBrush="#FFE8FF00" IsEnabled="False"/>
+        <Label x:Name="lblStopAndSave" Content="Quit &amp; Save" HorizontalAlignment="Left" Margin="135,10,0,0" VerticalAlignment="Top" FontSize="18" Foreground="White" Width="120" HorizontalContentAlignment="Center" Background="#FF6B54B9" Height="45" MouseEnter="lblStopAndSave_MouseEnter" MouseLeave="lblStopAndSave_MouseLeave" BorderBrush="Yellow" MouseDown="lblStopAndSave_MouseDown" IsEnabled="False"/>
+        <Label x:Name="lblTestSystem" Content="Test" HorizontalAlignment="Left" Margin="385,10,0,0" VerticalAlignment="Top" FontSize="18" Foreground="White" Width="120" HorizontalContentAlignment="Center" Background="#FF6B54B9" Height="45" BorderBrush="Yellow" MouseEnter="lblTestSystem_MouseEnter" MouseLeave="lblTestSystem_MouseLeave" MouseDown="lblTestSystem_MouseDown" IsEnabled="False"/>
+        <Label x:Name="lblStart" Content="Start" HorizontalAlignment="Left" Margin="510,10,0,0" VerticalAlignment="Top" FontSize="18" Foreground="White" Width="120" HorizontalContentAlignment="Center" Background="#FF6B54B9" Height="45" BorderBrush="Yellow" MouseEnter="lblStart_MouseEnter" MouseDown="lblStart_MouseDown" MouseLeave="lblStart_MouseLeave" IsEnabled="False"/>
+        <TextBox x:Name="tbFirstTeamName" HorizontalAlignment="Left" Height="23" Margin="135,69,0,0" TextWrapping="Wrap" Text="Left hand" VerticalAlignment="Top" Width="223" Visibility="Hidden"/>
+        <TextBox x:Name="tbSecondTeamName" HorizontalAlignment="Left" Height="23" Margin="135,97,0,0" TextWrapping="Wrap" Text="Right hand" VerticalAlignment="Top" Width="223" Visibility="Hidden"/>
+        <Label x:Name="lblFirstPoint" Content="{Binding FirstTeam.Point}" HorizontalAlignment="Left" Margin="365,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="51" Width="60" HorizontalContentAlignment="Center" Background="#FF6B54B9" Foreground="White" FontSize="30"/>
+        <Label x:Name="lblSecondPoint" Content="{Binding SecondTeam.Point}" HorizontalAlignment="Left" Margin="453,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="51" Width="60" HorizontalContentAlignment="Center" Background="#FF6B54B9" Foreground="White" FontSize="30"/>
+        <ListBox x:Name="lbKeyboards" HorizontalAlignment="Left" Height="61" Margin="475,68,0,0" VerticalAlignment="Top" Width="154"/>
+        <ListBox x:Name="lbGames" HorizontalAlignment="Left" Height="243" Margin="21,212,0,0" Grid.Row="1" VerticalAlignment="Top" Width="219" MouseDoubleClick="lbGames_MouseDoubleClick" IsEnabled="False" SelectionMode="Multiple" ></ListBox>
+        <Button x:Name="btnFirstKeyboard" Content="&lt;&lt; 1" HorizontalAlignment="Left" Margin="434,68,0,0" VerticalAlignment="Top" Width="36" Click="btnFirstKeyboard_Click" Visibility="Hidden"/>
+        <Button x:Name="btnSecondKeyboard" Content="&lt;&lt; 2" HorizontalAlignment="Left" Margin="434,97,0,0" VerticalAlignment="Top" Width="36" Click="btnSecondKeyboard_Click" Visibility="Hidden"/>
+        <Label x:Name="lblFKey" Content="Hansel" HorizontalAlignment="Left" Margin="365,68,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.368,-0.192" Visibility="Hidden"/>
+        <Label x:Name="lblSKey" Content="Gretel" HorizontalAlignment="Left" Margin="365,94,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.368,-0.192" Visibility="Hidden"/>
+        <Label x:Name="lblClearGames" Content="Clear games" HorizontalAlignment="Left" Margin="21,186,0,0" Grid.Row="1" VerticalAlignment="Top" Width="219" HorizontalContentAlignment="Center" Background="#FF6B54B9" Foreground="White" MouseEnter="lblClearGames_MouseEnter" MouseLeave="lblClearGames_MouseLeave" MouseDown="lblClearGames_MouseDown" BorderBrush="Yellow" RenderTransformOrigin="0.511,-0.846"/>
+        <Slider x:Name="Sld" HorizontalAlignment="Left" Margin="650,11,0,0" VerticalAlignment="Top" Orientation="Vertical" Height="119" RenderTransformOrigin="-0.273,0.509" Value="5" Maximum="11" Minimum="1" IsSnapToTickEnabled="True" BorderBrush="#FF6B54B9" Background="#FF6B54B9" Foreground="#FFCDCDCD" Ticks="1 2 3 4 5 6 7 8 9 10 11" TickPlacement="TopLeft" SmallChange="1" Visibility="Hidden"/>
+        <Label x:Name="lblAddKeyboards" Content="Add Keyboards" HorizontalAlignment="Left" Margin="365,80,0,0" Grid.Row="1" VerticalAlignment="Top" Height="60" Width="148" Background="#FF00A21E" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" MouseEnter="lblAddKeyboards_MouseEnter" MouseDown="lblAddKeyboards_MouseDown" MouseLeave="lblAddKeyboards_MouseLeave" BorderBrush="#FFF7FE00"/>
+        <DataGrid x:Name="dgQuestions" AutoGenerateColumns="False" HorizontalAlignment="Left" Margin="660,186,0,0" Grid.Row="1" VerticalAlignment="Top" Height="269" Width="193" ItemsSource="{Binding}" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Status" Width="45" Binding="{Binding IsFinished}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Background" 
+                                Value="{Binding IsFinished, Converter={StaticResource valueToForeground}}" />
+                            <Setter Property="Foreground" 
+                                Value="{Binding IsFinished, Converter={StaticResource valueToForeground}}" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="№" Width="30" 
+                             Binding="{Binding Name}">
+                    <!--<DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Background" 
+                                Value="{Binding Name, Converter={StaticResource activeQuestion}}" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>-->
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Left" Width="55" Binding="{Binding FirstTeamStatus}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Background" 
+                                Value="{Binding FirstTeamStatus, Converter={StaticResource valueToForeground}}" />
+                            <Setter Property="Foreground" 
+                                Value="{Binding FirstTeamStatus, Converter={StaticResource valueToForeground}}" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="Right" Width="55"
+                             Binding="{Binding SecondTeamStatus}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Background" 
+                                Value="{Binding SecondTeamStatus, Converter={StaticResource valueToForeground}}" />
+                            <Setter Property="Foreground" 
+                                Value="{Binding SecondTeamStatus, Converter={StaticResource valueToForeground}}" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label x:Name="lblFirstTeamPress" Content="Telperion" HorizontalAlignment="Left" Margin="21,80,0,0" Grid.Row="1" VerticalAlignment="Top" Width="324" Height="101" BorderThickness="0" HorizontalContentAlignment="Center" Foreground="Black" FontSize="18"/>
+        <Label x:Name="lblSecondTeamPress" Content="Laurelin" HorizontalAlignment="Left" Margin="532,80,0,0" Grid.Row="1" VerticalAlignment="Top" Width="322" Height="101" BorderThickness="0" HorizontalContentAlignment="Center" Foreground="Black" FontSize="18"/>
+        <CheckBox x:Name="chb60seconds" Content="60 seconds" HorizontalAlignment="Left" Margin="391,221,0,0" Grid.Row="1" VerticalAlignment="Top" Width="79" Visibility="Hidden"/>
+        <Label x:Name="lblNextQuestion" Content="Next question" HorizontalAlignment="Left" Margin="260,10,0,0" VerticalAlignment="Top" FontSize="18" Foreground="White" Width="120" HorizontalContentAlignment="Center" Background="#FF6B54B9" Height="45" BorderBrush="Yellow" IsEnabled="False" MouseDown="lblNextQuestion_MouseDown" MouseEnter="lblNextQuestion_MouseEnter" MouseLeave="lblNextQuestion_MouseLeave"/>
+        <Grid x:Name="gridResults" HorizontalAlignment="Left" Height="26" Margin="824,103,0,0" VerticalAlignment="Top" Width="22"/>
+        <Label x:Name="l5" Content="5" HorizontalAlignment="Left" Margin="634,68,0,0" VerticalAlignment="Top" Width="20" Visibility="Hidden"/>
+        <Label x:Name="l1" Content="1" HorizontalAlignment="Left" Margin="634,112,0,0" VerticalAlignment="Top" Width="20" Grid.RowSpan="2" Visibility="Hidden"/>
+        <Label x:Name="l11" Content="11" HorizontalAlignment="Left" Margin="630,0,0,0" VerticalAlignment="Top" Width="29" Visibility="Hidden"/>
+        <Label x:Name="l8" Content="8" HorizontalAlignment="Left" Margin="634,35,0,0" VerticalAlignment="Top" Width="20" Visibility="Hidden"/>
+    </Grid>
+</Window>
